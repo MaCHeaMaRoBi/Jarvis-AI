@@ -3,7 +3,7 @@ import speech_recognition as sr
 import socket
 
 clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-clientSocket.connect(("94.52.177.116", 6969))
+clientSocket.connect(("192.168.0.117", 6969))
 
 
 r = sr.Recognizer()
@@ -18,22 +18,32 @@ def talk(text):
 
 
 def get_command():
-    with sr.Microphone() as source:
-        audio = r.listen(source)
-        try:
+    try:
+        with sr.Microphone() as source:
+            r.adjust_for_ambient_noise(source, duration=0.2)
+            audio = r.listen(source)
             text = r.recognize_google(audio)
-            return text
-        except:
-            print("Sorry could not recognize what you said")
-            return ""
+            if 'jarvis' in text:
+                text = text.replace('jarvis', '')
+    except:
+        print("Sorry could not recognize what you said")
+        return None
+    return text
+
+
+def run_jarvis():
+    message = get_command()
+    if message is not None:
+        # if "goodbye" or "bye" in message:
+        # break
+
+        clientSocket.send(message.encode())
+        print("Sended: ", message)
+
+        dataFromServer = clientSocket.recv(20480)
+        print("Received: ", dataFromServer.decode())
+        talk(dataFromServer.decode())
 
 
 while True:
-    message = get_command()
-    if message != "":
-
-        clientSocket.send(message.encode())
-
-        dataFromServer = clientSocket.recv(1024)
-        print(dataFromServer.decode())
-        talk(dataFromServer.decode())
+    run_jarvis()

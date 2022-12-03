@@ -20,6 +20,11 @@
       "responses": ["I was initiated for the first time in 2022, sir"]
     },
     {
+      "tag": "seriousness",
+      "patterns": ["for real?", "are you serious?", "are you saying the truth?"],
+      "responses": ["Yes sir", "I cannot lie, sir"]
+    },
+    {
       "tag": "purpose",
       "patterns": [
         "why are you here?",
@@ -34,7 +39,7 @@
     },
     {
       "tag": "serar",
-      "patterns": ["is serar gay?", "serar is gay", "serar es stupid"],
+      "patterns": ["is serar gay?", "serar is gay", "serar is stupid"],
       "responses": ["I personally think that serar likes to suck cocks"]
     },
     {
