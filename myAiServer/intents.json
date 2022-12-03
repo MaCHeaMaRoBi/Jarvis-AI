@@ -12,17 +12,30 @@
         "you there?",
         "are you up?"
       ],
-      "responses": ["At your service, sir", "hello sir.", "Yes, sir?"]
+      "responses": ["At your service, sir", "hello sir.", "Yes, sir?"],
+      "context_set": ""
     },
     {
       "tag": "age",
       "patterns": ["how old?", "how old are you?", "what is your age?", "age?"],
-      "responses": ["I was initiated for the first time in 2022, sir"]
+      "responses": ["I was initiated for the first time in 2022, sir"],
+      "context_set": ""
     },
     {
       "tag": "seriousness",
-      "patterns": ["for real?", "are you serious?", "are you saying the truth?"],
-      "responses": ["Yes sir", "I cannot lie, sir"]
+      "patterns": [
+        "for real?",
+        "are you serious?",
+        "are you saying the truth?"
+      ],
+      "responses": ["Yes sir", "I cannot lie, sir"],
+      "context_set": ""
+    },
+    {
+      "tag": "time",
+      "patterns": ["what hour is it?", "what time is it?"],
+      "responses": [""],
+      "context_set": ""
     },
     {
       "tag": "purpose",
@@ -35,7 +48,8 @@
         "I am an personal assistant, sir",
         "I am here to help my creator",
         "I try to help my creator as much as can"
-      ]
+      ],
+      "context_set": ""
     },
     {
       "tag": "serar",
@@ -51,7 +65,8 @@
         "are you good?",
         "are you okay?"
       ],
-      "responses": ["i'm good, sir", "I'm good, how are you, sir?"]
+      "responses": ["i'm good, sir", "I'm good, how are you, sir?"],
+      "context_set": ""
     },
     {
       "tag": "name",
@@ -65,7 +80,8 @@
         "I'm Jarvis, sir",
         "My name is Jarvis, sir",
         "My owner called me Jarvis, sir"
-      ]
+      ],
+      "context_set": ""
     },
     {
       "tag": "creator",
@@ -81,7 +97,8 @@
         "My creator name is Robert G., sir",
         "I was made by Robert, sir",
         "I was created by Robert, sir"
-      ]
+      ],
+      "context_set": ""
     }
   ]
 }
