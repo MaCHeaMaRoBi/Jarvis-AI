@@ -147,14 +147,14 @@ def what_time_is_it():
 
 
 mappings = {
-    'time': what_time_is_it
+    # 'time': what_time_is_it
 }
 
 assistant = GenericAssistant(
     'intents.json', intent_methods=mappings, model_name="jarvis_model")
-assistant.load_model('jarvis_model')
-# assistant.train_model()
-# assistant.save_model()
+# assistant.load_model('jarvis_model')
+assistant.train_model()
+assistant.save_model()
 
 
 def create_workers():

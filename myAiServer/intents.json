@@ -32,12 +32,6 @@
       "context_set": ""
     },
     {
-      "tag": "time",
-      "patterns": ["what hour is it?", "what time is it?"],
-      "responses": [""],
-      "context_set": ""
-    },
-    {
       "tag": "purpose",
       "patterns": [
         "why are you here?",
@@ -66,6 +60,24 @@
         "are you okay?"
       ],
       "responses": ["i'm good, sir", "I'm good, how are you, sir?"],
+      "context_set": ""
+    },
+    {
+      "tag": "reassure",
+      "patterns": ["i'm good", "i'm fine", "i'm allright"],
+      "responses": ["that's excellent, sir"],
+      "context_set": "feelings"
+    },
+    {
+      "tag": "nigga",
+      "patterns": [
+        "giga niga",
+        "giga nigga",
+        "who is giga niga?",
+        "nigga",
+        "giga"
+      ],
+      "responses": ["Papuc 69 is giga niga"],
       "context_set": ""
     },
     {
