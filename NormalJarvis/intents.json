@@ -34,6 +34,24 @@
       "context_set": ""
     },
     {
+      "tag": "change_username",
+      "patterns": ["change my username?", "username", "I don't like my username"],
+      "responses": [""],
+      "context_set": ""
+    },
+    {
+      "tag": "open_app",
+      "patterns": ["open an app", "can you open an app?", "open app"],
+      "responses": [""],
+      "context_set": ""
+    },
+    {
+      "tag": "repeat",
+      "patterns": ["can you repeat after me?", "repeat me", "repeat the words I say"],
+      "responses": [""],
+      "context_set": ""
+    },
+    {
       "tag": "seriousness",
       "patterns": [
         "for real?",
