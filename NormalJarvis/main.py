@@ -35,8 +35,8 @@ def get_command():
 
 
 def time_now():
-    strTime = datetime.datetime.now().strftime("%H:%M")
-    talk(f"Sir, the time is {strTime}")
+    str_time = datetime.datetime.now().strftime("%H:%M")
+    talk(f"Sir, the time is {str_time}")
 
 
 def change_username():
@@ -85,7 +85,6 @@ def open_app():
                 app = r.recognize_google(audio)
 
                 run(app)
-
                 done = True
 
                 talk(f"Opened {app}")
@@ -131,18 +130,18 @@ assistant.load_model('jarvis_model')
 
 def wish_me():
     hour = int(datetime.datetime.now().hour)
-    if hour >= 0 and hour < 12:
+    if 0 <= hour < 12:
         talk("Good Morning Sir !")
 
-    elif hour >= 12 and hour < 18:
+    elif 12 <= hour < 18:
         talk("Good Afternoon Sir !")
 
     else:
         talk("Good Evening Sir !")
 
-    assname = ("Jarvis 1 point o")
+    ass_name = "Jarvis 1 point o"
     talk("I am your Assistant")
-    talk(assname)
+    talk(ass_name)
 
 
 def username():
