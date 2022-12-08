@@ -35,7 +35,19 @@
     },
     {
       "tag": "change_username",
-      "patterns": ["change my username?", "username", "I don't like my username"],
+      "patterns": ["change my username", "username", "I don't like my username", "change my name", "can you change my name?"],
+      "responses": [""],
+      "context_set": ""
+    },
+    {
+      "tag": "show_username",
+      "patterns": ["what's my username?", "what's my name", "what is my name", "what is my username"],
+      "responses": [""],
+      "context_set": ""
+    },
+    {
+      "tag": "exit",
+      "patterns": ["exit", "quit", "can you exit?"],
       "responses": [""],
       "context_set": ""
     },
@@ -94,7 +106,7 @@
     },
     {
       "tag": "reassure",
-      "patterns": ["i'm good", "i'm fine", "i'm allright"],
+      "patterns": ["i'm good", "i'm fine", "i'm alright"],
       "responses": ["that's excellent, sir"],
       "context_set": "feelings"
     },

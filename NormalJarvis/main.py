@@ -1,7 +1,6 @@
+import sys
 import pyttsx3
-import speech_recognition
 import speech_recognition as sr
-import numpy as np
 import nltk
 import datetime
 from AppOpener import run
@@ -22,6 +21,7 @@ def talk(text):
 
 
 def get_command():
+    global r
     try:
         with sr.Microphone() as source:
             r.adjust_for_ambient_noise(source, duration=0.2)
@@ -30,8 +30,8 @@ def get_command():
             print("You: " + text)
             return text
     except sr.UnknownValueError:
+        r = sr.Recognizer()
         print("Sorry could not recognize what you said")
-        return None
 
 
 def time_now():
@@ -46,7 +46,7 @@ def change_username():
 
     while not done:
         try:
-            with speech_recognition.Microphone() as mic:
+            with sr.Microphone() as mic:
 
                 r.adjust_for_ambient_noise(mic, duration=0.2)
                 audio = r.listen(mic)
@@ -58,8 +58,8 @@ def change_username():
                 done = True
 
                 talk(f"Your new username is {new_username}")
-        except speech_recognition.UnknownValueError:
-            r = speech_recognition.Recognizer()
+        except sr.UnknownValueError:
+            r = sr.Recognizer()
             talk("I did not understand, sir. Please try again")
 
 
@@ -78,7 +78,7 @@ def open_app():
 
     while not done:
         try:
-            with speech_recognition.Microphone() as mic:
+            with sr.Microphone() as mic:
 
                 r.adjust_for_ambient_noise(mic, duration=0.2)
                 audio = r.listen(mic)
@@ -88,8 +88,8 @@ def open_app():
                 done = True
 
                 talk(f"Opened {app}")
-        except speech_recognition.UnknownValueError:
-            r = speech_recognition.Recognizer()
+        except sr.UnknownValueError:
+            r = sr.Recognizer()
             talk("I did not understand, sir. Please try again")
 
 
@@ -99,16 +99,26 @@ def repeat():
 
     while not done:
         try:
-            with speech_recognition.Microphone() as mic:
+            with sr.Microphone() as mic:
 
                 r.adjust_for_ambient_noise(mic, duration=0.2)
                 audio = r.listen(mic)
                 text = r.recognize_google(audio)
                 talk(text)
                 done = True
-        except speech_recognition.UnknownValueError:
-            r = speech_recognition.Recognizer()
+        except sr.UnknownValueError:
+            r = sr.Recognizer()
             talk("I did not understand, sir. Please try again")
+
+
+def exit_jarvis():
+    talk("Goodbye sir")
+    sys.exit(0)
+
+
+def show_username():
+    with open('username.txt', 'r') as f:
+        talk(f"Your username is {f.read()}")
 
 
 mappings = {
@@ -116,7 +126,9 @@ mappings = {
     'train': train_now,
     'change_username': change_username,
     'open_app': open_app,
-    'repeat': repeat
+    'repeat': repeat,
+    'exit': exit_jarvis,
+    'show_username': show_username
 }
 
 assistant = GenericAssistant(
