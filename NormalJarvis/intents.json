@@ -28,6 +28,12 @@
       "context_set": ""
     },
     {
+      "tag": "play_song",
+      "patterns": ["can you play a song?", "play a song", "song", "music"],
+      "responses": [""],
+      "context_set": ""
+    },
+    {
       "tag": "train",
       "patterns": ["can you train?", "go and train", "train yourself"],
       "responses": [""],
@@ -60,6 +66,12 @@
     {
       "tag": "repeat",
       "patterns": ["can you repeat after me?", "repeat me", "repeat the words I say"],
+      "responses": [""],
+      "context_set": ""
+    },
+     {
+      "tag": "weather",
+      "patterns": ["what's the weather", "How hot is outside?", "how many degrees are outside?", "What's the temperature?"],
       "responses": [""],
       "context_set": ""
     },
