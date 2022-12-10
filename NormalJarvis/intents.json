@@ -22,6 +22,12 @@
       "context_set": ""
     },
     {
+      "tag": "web_search",
+      "patterns": ["search something?", "can you search something?", "google", "search?"],
+      "responses": [""],
+      "context_set": ""
+    },
+    {
       "tag": "time",
       "patterns": ["what is the time?", "what's the time?", "what is the hour?", "time?"],
       "responses": [""],
@@ -53,7 +59,7 @@
     },
     {
       "tag": "exit",
-      "patterns": ["exit", "quit", "can you exit?"],
+      "patterns": ["exit", "quit", "can you exit?", "goodbye", "bye", "leave"],
       "responses": [""],
       "context_set": ""
     },
@@ -72,6 +78,30 @@
      {
       "tag": "weather",
       "patterns": ["what's the weather", "How hot is outside?", "how many degrees are outside?", "What's the temperature?"],
+      "responses": [""],
+      "context_set": ""
+    },
+    {
+      "tag": "find_out_something",
+      "patterns": ["who is?", "can you search something?", "can you calculate something?", "what is?", "can you find something", "calculate", "search"],
+      "responses": [""],
+      "context_set": ""
+    },
+    {
+      "tag": "joke",
+      "patterns": ["can you tell a joke?", "tell a joke", "say a joke", "joke", "can you say a joke"],
+      "responses": [""],
+      "context_set": ""
+    },
+    {
+      "tag": "joke_response",
+      "patterns": ["that was funny", "I liked that one", "you are the best", "haha"],
+      "responses": ["i like to keep you entertained, sir", "Thank you, sir!"],
+      "context_set": "joke"
+    },
+    {
+      "tag": "create_note",
+      "patterns": ["create a note", "add a note", "can you create a note?", "can you add a note?", "make a note"],
       "responses": [""],
       "context_set": ""
     },
@@ -119,7 +149,7 @@
     {
       "tag": "reassure",
       "patterns": ["i'm good", "i'm fine", "i'm alright"],
-      "responses": ["that's excellent, sir"],
+      "responses": ["that's excellent, sir", "It's good to know that your fine"],
       "context_set": "feelings"
     },
     {

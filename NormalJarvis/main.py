@@ -5,14 +5,17 @@ import speech_recognition as sr
 import datetime
 from AppOpener import run
 from neuralintents import GenericAssistant
-
-from bs4 import BeautifulSoup
-import requests
+import requests, json
+import wolframalpha
+import pyjokes
+import math
+import webbrowser
 
 # nltk.download('omw-1.4')
 
 r = sr.Recognizer()
 engine = pyttsx3.init()
+engine.setProperty('rate', 175)
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
 
@@ -127,20 +130,110 @@ def show_username():
 def play_song():
     talk("I cannot")
 
-headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+
 def weather():
-    city = "mioveni"
-    city = city + " weather"
-    city = city.replace(" ", "+")
-    res = requests.get(
-        f'https://www.google.com/search?q={city}&oq={city}&aqs=chrome.0.35i39l2j0l4j46j69i60.6128j1j7&sourceid=chrome&ie=UTF-8',
-        headers=headers)
-    print("Searching...\n")
-    soup = BeautifulSoup(res.text, 'html.parser')
-    info = soup.select('#wob_dc')[0].getText().strip()
-    m_weather = soup.select('#wob_tm')[0].getText().strip()
-    talk(info + ", " + m_weather + "°C")
+    api_key = "0ff96b39bdc83f5eb47e57fbcaa9d598"
+
+    # base_url variable to store url
+    base_url = "http://api.openweathermap.org/data/2.5/weather?"
+    city_name = "mioveni"
+
+    complete_url = base_url + "appid=" + api_key + "&q=" + city_name
+    response = requests.get(complete_url)
+    x = response.json()
+    if x["cod"] != "404":
+        y = x["main"]
+        current_temperature = y["temp"]
+        z = x["weather"]
+        weather_description = z[0]["description"]
+
+        talk("There are " + str(math.floor(current_temperature - 273.15)) + "°C " + "and " + str(weather_description))
+
+    else:
+        print(" City Not Found ")
+
+
+def wolf_frame():
+    talk("What do you want to search, sir?")
+    client = wolframalpha.Client("JL9GTT-XT7A9KULRY")
+
+    global r
+    done = False
+
+    while not done:
+        try:
+            with sr.Microphone() as mic:
+
+                r.adjust_for_ambient_noise(mic, duration=0.2)
+                audio = r.listen(mic)
+                text = r.recognize_google(audio)
+
+                res = client.query(text)
+
+                try:
+                    talk(next(res.results).text)
+                except StopIteration:
+                    print("No results")
+                done = True
+        except sr.UnknownValueError:
+            r = sr.Recognizer()
+            talk("I did not understand, sir. Please try again")
+
+
+def joke():
+    talk(pyjokes.get_joke())
+
+
+def create_note():
+    global r
+    talk("What do you want to write onto your note?")
+    done = False
+
+    while not done:
+        try:
+            with sr.Microphone() as mic:
+
+                r.adjust_for_ambient_noise(mic, duration=0.2)
+                audio = r.listen(mic)
+                note = r.recognize_google(audio)
+
+                talk("Choose a filename!")
+
+                r.adjust_for_ambient_noise(mic, duration=0.2)
+                audio = r.listen(mic)
+                filename = r.recognize_google(audio)
+                filename = filename.lower()
+
+                with open(f"notes/{filename}", 'w') as f:
+                    f.write(note)
+                    done = True
+                    talk(f"I successfully created a note {filename}")
+        except sr.UnknownValueError:
+            r = sr.Recognizer()
+            talk("I did not understand, sir. Please try again")
+
+
+def web_search():
+    global r
+
+    talk("What do you want to search?")
+
+    done = False
+
+    while not done:
+        try:
+            with sr.Microphone() as mic:
+
+                r.adjust_for_ambient_noise(mic, duration=0.2)
+                audio = r.listen(mic)
+                query = r.recognize_google(audio)
+
+                webbrowser.open(f"www.google.com/search?q={query}")
+
+                done = True
+        except sr.UnknownValueError:
+            r = sr.Recognizer()
+            talk("I did not understand, sir. Please try again")
 
 
 mappings = {
@@ -152,7 +245,11 @@ mappings = {
     'exit': exit_jarvis,
     'show_username': show_username,
     'play_song': play_song,
-    'weather': weather
+    'weather': weather,
+    'find_out_something': wolf_frame,
+    'joke': joke,
+    'create_note': create_note,
+    'web_search': web_search
 }
 
 assistant = GenericAssistant(
