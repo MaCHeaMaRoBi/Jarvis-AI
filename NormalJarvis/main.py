@@ -10,6 +10,10 @@ import wolframalpha
 import pyjokes
 import math
 import webbrowser
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # nltk.download('omw-1.4')
 
@@ -132,7 +136,7 @@ def play_song():
 
 
 def weather():
-    api_key = "0ff96b39bdc83f5eb47e57fbcaa9d598"
+    api_key = os.getenv('WEATHER')
 
     # base_url variable to store url
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
@@ -155,7 +159,7 @@ def weather():
 
 def wolf_frame():
     talk("What do you want to search, sir?")
-    client = wolframalpha.Client("JL9GTT-XT7A9KULRY")
+    client = wolframalpha.Client(os.getenv('WOLFRAMALPHA'))
 
     global r
     done = False
