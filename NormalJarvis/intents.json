@@ -130,11 +130,6 @@
       "context_set": ""
     },
     {
-      "tag": "serar",
-      "patterns": ["is serar gay?", "serar is gay", "serar is stupid"],
-      "responses": ["I personally think that serar likes to suck cocks"]
-    },
-    {
       "tag": "feelings",
       "patterns": [
         "how are you?",
@@ -151,18 +146,6 @@
       "patterns": ["i'm good", "i'm fine", "i'm alright"],
       "responses": ["that's excellent, sir", "It's good to know that your fine"],
       "context_set": "feelings"
-    },
-    {
-      "tag": "nigga",
-      "patterns": [
-        "giga niga",
-        "giga nigga",
-        "who is giga niga?",
-        "nigga",
-        "giga"
-      ],
-      "responses": ["Papuc 69 is giga niga"],
-      "context_set": ""
     },
     {
       "tag": "name",
