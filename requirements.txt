@@ -1,0 +1,7 @@
+pyttsx3
+speechrecognition
+AppOpener
+neuralintents
+wolframalpha
+pyjokes
+dotenv
