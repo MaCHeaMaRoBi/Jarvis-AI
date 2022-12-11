@@ -5,7 +5,7 @@ import speech_recognition as sr
 import datetime
 from AppOpener import run
 from neuralintents import GenericAssistant
-import requests, json
+import requests
 import wolframalpha
 import pyjokes
 import math
@@ -30,7 +30,11 @@ def talk(text):
     engine.runAndWait()
 
 
+old_command = ""
+
+
 def get_command():
+    global old_command
     global r
     try:
         with sr.Microphone() as source:
@@ -38,6 +42,7 @@ def get_command():
             audio = r.listen(source)
             text = r.recognize_google(audio)
             print("You: " + text)
+            old_command = text
             return text
     except sr.UnknownValueError:
         r = sr.Recognizer()
@@ -151,37 +156,45 @@ def weather():
         z = x["weather"]
         weather_description = z[0]["description"]
 
-        talk("There are " + str(math.floor(current_temperature - 273.15)) + "°C " + "and " + str(weather_description))
+        talk("There are " + str(math.floor(current_temperature - 273.15)
+                                ) + "°C " + "and " + str(weather_description))
 
     else:
         print(" City Not Found ")
 
 
 def wolf_frame():
-    talk("What do you want to search, sir?")
+    # talk("What do you want to search, sir?")
     client = wolframalpha.Client(os.getenv('WOLFRAMALPHA'))
 
-    global r
-    done = False
+    global old_command
+    res = client.query(old_command)
 
-    while not done:
-        try:
-            with sr.Microphone() as mic:
+    try:
+        talk(next(res.results).text)
+    except StopIteration:
+        talk("No result available, sir. Please try again")
+    # global r
+    # done = False
 
-                r.adjust_for_ambient_noise(mic, duration=0.2)
-                audio = r.listen(mic)
-                text = r.recognize_google(audio)
+    # while not done:
+    #     try:
+    #         with sr.Microphone() as mic:
 
-                res = client.query(text)
+    #             r.adjust_for_ambient_noise(mic, duration=0.2)
+    #             audio = r.listen(mic)
+    #             text = r.recognize_google(audio)
 
-                try:
-                    talk(next(res.results).text)
-                except StopIteration:
-                    print("No results")
-                done = True
-        except sr.UnknownValueError:
-            r = sr.Recognizer()
-            talk("I did not understand, sir. Please try again")
+    #             res = client.query(text)
+
+    #             try:
+    #                 talk(next(res.results).text)
+    #             except StopIteration:
+    #                 print("No results")
+    #             done = True
+    #     except sr.UnknownValueError:
+    #         r = sr.Recognizer()
+    #         talk("I did not understand, sir. Please try again")
 
 
 def joke():
@@ -261,8 +274,9 @@ assistant = GenericAssistant(
 assistant.load_model('jarvis_model')
 
 
-# assistant.train_model()
-# assistant.save_model()
+if not os.path.exists('jarvis_model.h5'):
+    assistant.train_model()
+    assistant.save_model()
 
 
 def wish_me():
